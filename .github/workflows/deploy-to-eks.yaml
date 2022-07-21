@@ -8,6 +8,10 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  EKS_CLUSTER: extravagant-sculpture-1658356084
+  EKS_REGION: us-west-2
+
 jobs:
   deploy:
     name: Deploy

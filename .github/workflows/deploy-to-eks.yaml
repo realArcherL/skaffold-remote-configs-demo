@@ -62,7 +62,7 @@ jobs:
       
       # check directory
       - name: ls command
-        run: ls && pwd && locate README.md
+        run: ls && pwd && find README.md
 
       # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold

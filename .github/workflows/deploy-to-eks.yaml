@@ -59,14 +59,10 @@ jobs:
       # Connect to EKS cluster
       - name: Connect to EKS cluster 
         run: aws eks --region $EKS_REGION update-kubeconfig --name $EKS_CLUSTER
-      
-      # check directory
-      - name: ls command
-        run: ls && pwd && find README.md
 
       # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold
-        run: skaffold run
+        run: skaffold run ../skaffold.yaml
 
       # Verify deployment
       - name: Verify the deployment

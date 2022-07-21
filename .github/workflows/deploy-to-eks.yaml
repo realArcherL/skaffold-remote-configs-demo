@@ -26,6 +26,10 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::853701244726:role/github_action_role
           aws-region: us-west-2
+      
+      # verify aws authentication
+      - name: Check AWS authentication
+        run: aws sts get-caller-identity
 
       # Install kubectl
       - name: Install kubectl
@@ -52,6 +56,11 @@ jobs:
           path: ~/.skaffold/
           key: fixed-${{ github.sha }}
 
+      # Connect to EKS cluster
+      - name: Connect to EKS cluster 
+        run: aws eks --region extravagant-sculpture-1658356084 update-kubeconfig --name us-west-2
+
       # Verify deployment
       - name: Verify the deployment
         run: kubectl get nodes
+    

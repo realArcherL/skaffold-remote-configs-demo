@@ -60,6 +60,10 @@ jobs:
       - name: Connect to EKS cluster 
         run: aws eks --region us-west-2 update-kubeconfig --name extravagant-sculpture-1658356084
       
+      # check directory
+      - name: ls command
+        run: ls
+
       # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold
         run: skaffold run
@@ -67,8 +71,4 @@ jobs:
       # Verify deployment
       - name: Verify the deployment
         run: kubectl get pods
-      
-      # check directory
-      - name: ls command
-        run: ls
     

@@ -6,14 +6,14 @@ on:
 
 permissions:
   id-token: write
-  content: read
+  contents: read
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+    # env:
+    #   ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     steps:
 
       # checkout AWS credentials

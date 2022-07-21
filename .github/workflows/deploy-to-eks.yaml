@@ -58,9 +58,9 @@ jobs:
 
       # Connect to EKS cluster
       - name: Connect to EKS cluster 
-        run: aws eks --region extravagant-sculpture-1658356084 update-kubeconfig --name us-west-2
+        run: aws eks --region us-west-2 update-kubeconfig --name extravagant-sculpture-1658356084
 
       # Verify deployment
       - name: Verify the deployment
-        run: kubectl get nodes
+        run: kubectl get pods
     

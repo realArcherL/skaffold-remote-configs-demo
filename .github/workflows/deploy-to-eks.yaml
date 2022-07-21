@@ -19,6 +19,9 @@ jobs:
     # env:
     #   ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     steps:
+      # checkout the repository
+      - name: Clone repo
+        uses: actions/checkout@v2
 
       # checkout AWS credentials
       - name: Configure AWS Credentials
@@ -62,7 +65,7 @@ jobs:
 
       # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold
-        run: cd ../ & skaffold run
+        run: cd ../ && skaffold run
 
       # Verify deployment
       - name: Verify the deployment

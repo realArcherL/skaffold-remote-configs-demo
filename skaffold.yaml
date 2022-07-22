@@ -1,7 +1,7 @@
 apiVersion: skaffold/v2beta12
 kind: Config
 metadata:
-  name: loadgenerator-svc
+  name: httpx
 requires:
   - configs: [backend-svc]
   - git:

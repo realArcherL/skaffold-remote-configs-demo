@@ -1,7 +1,7 @@
 apiVersion: skaffold/v2beta12
 kind: Config
 metadata:
-  name: httpx
+  name: httpx-svc
 requires:
   - configs: [backend-svc]
   - git:

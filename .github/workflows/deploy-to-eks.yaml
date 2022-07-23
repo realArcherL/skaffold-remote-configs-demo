@@ -58,8 +58,8 @@ jobs:
           skaffold version
       
       # AWS update kubeconfig
-      - name: Upading kubeconfig
-        run: aws update-kubeconfig
+      - name: Updating kubeconfig
+        run: aws eks update-kubeconfig --name example
         
       # Cache skaffold image builds & config
       - name: Cache skaffold image builds & config

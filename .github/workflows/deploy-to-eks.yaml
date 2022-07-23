@@ -60,10 +60,6 @@ jobs:
       # AWS update kubeconfig
       - name: Updating kubeconfig
         run: aws eks update-kubeconfig --name $EKS_CLUSTER
-
-      # kubectl cluster info
-      - name: kubectl Cluster information
-        run: kubectl cluster-info
         
       # Cache skaffold image builds & config
       - name: Cache skaffold image builds & config
@@ -78,7 +74,7 @@ jobs:
 
       # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold
-        run: skaffold run
+        run: skaffold run --kubeconfig $EKS_CLUSTER
 
       # Verify deployment
       - name: Verify the deployment

@@ -78,7 +78,7 @@ jobs:
 
       # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold
-        run: skaffold run --kubeconfig $EKS_CLUSTER
+        run: skaffold run
 
       # Verify deployment
       - name: Verify the deployment

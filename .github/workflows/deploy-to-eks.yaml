@@ -59,7 +59,7 @@ jobs:
       
       # Debug 2
       - name: cluster info
-        run:  kubectl cluster-info
+        run:  kubectl cluster-info dump
           
       # Debug1 
       - name: Config current context

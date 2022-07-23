@@ -59,7 +59,7 @@ jobs:
       
       # AWS update kubeconfig
       - name: Updating kubeconfig
-        run: aws eks update-kubeconfig --name example
+        run: aws eks update-kubeconfig --name $EKS_CLUSTER
         
       # Cache skaffold image builds & config
       - name: Cache skaffold image builds & config

@@ -57,13 +57,9 @@ jobs:
           sudo install skaffold /usr/local/bin/
           skaffold version
       
-      # Debug 2
-      - name: cluster info
-        run:  kubectl cluster-info dump
-          
-      # Debug1 
-      - name: Config current context
-        run: kubectl config current-context
+      # AWS update kubeconfig
+      - name: Upading kubeconfig
+        run: aws update-kubeconfig
         
       # Cache skaffold image builds & config
       - name: Cache skaffold image builds & config

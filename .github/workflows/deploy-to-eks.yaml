@@ -57,6 +57,10 @@ jobs:
           sudo install skaffold /usr/local/bin/
           skaffold version
           
+      # Debug1 
+      - name: Config current context
+        run: kubectl config current-context
+        
       # Cache skaffold image builds & config
       - name: Cache skaffold image builds & config
         uses: actions/cache@v2

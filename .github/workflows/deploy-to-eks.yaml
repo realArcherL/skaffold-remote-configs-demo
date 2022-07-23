@@ -1,65 +1,86 @@
-name: Build & Deploy to EKS
-'on':
+name: 'Build & Deploy to EKS'
+on:
   push:
     branches:
       - main
+
 permissions:
   id-token: write
   contents: read
+
 env:
   EKS_CLUSTER: extravagant-sculpture-1658356084
   EKS_REGION: us-west-2
+
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    # env:
+    #   ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     steps:
+      # checkout the repository
       - name: Clone repo
         uses: actions/checkout@v2
+
+      # checkout AWS credentials
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: 'arn:aws:iam::853701244726:role/github_action_role'
+          role-to-assume: arn:aws:iam::853701244726:role/github_action_role
           aws-region: us-west-2
+      
+      # verify aws authentication
       - name: Check AWS authentication
         run: aws sts get-caller-identity
+      
+      # docker auth
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+
+      # Install kubectl
       - name: Install kubectl
-        run: >
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s
-          https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-
-          curl -LO "https://dl.k8s.io/$(curl -L -s
-          https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-
+        run: |
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
           echo "$(<kubectl.sha256) kubectl" | sha256sum --check
 
 
-
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-
           kubectl version --client
+
+      # Install Skaffold
       - name: Install Skaffold
-        run: >
-          curl -Lo skaffold
-          https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
-          && \
-
+        run: |
+          curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 && \
           sudo install skaffold /usr/local/bin/
-
           skaffold version
+          
+      # Debug1 
       - name: Config current context
         run: kubectl config current-context
+      
+      # Debug 2
+      - name: cluster info
+        run:  kubectl cluster-info
+        
+      # Cache skaffold image builds & config
       - name: Cache skaffold image builds & config
         uses: actions/cache@v2
         with:
           path: ~/.skaffold/
-          key: 'fixed-${{ github.sha }}'
-      - name: Connect to EKS cluster
+          key: fixed-${{ github.sha }}
+
+      # Connect to EKS cluster
+      - name: Connect to EKS cluster 
         run: aws eks --region $EKS_REGION update-kubeconfig --name $EKS_CLUSTER
+
+      # Build and deploy to EKS cluster
       - name: Build and then deploy to EKS cluster with Skaffold
         run: skaffold run
+
+      # Verify deployment
       - name: Verify the deployment
         run: kubectl get pods
+    

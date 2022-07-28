@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 env:
-  EKS_CLUSTER: extravagant-sculpture-1658356084
+  EKS_CLUSTER: fabulous-mongoose-1659032330
   EKS_REGION: us-west-2
 
 jobs:

@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: httpx
+build:
+  artifacts:
+  - image: 853701244726.dkr.ecr.us-west-2.amazonaws.com/httpx
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - manifests.yaml

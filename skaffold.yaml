@@ -3,7 +3,4 @@ kind: Config
 metadata:
   name: httpx-svc
 requires:
-  - configs: [backend-svc]
-  - git:
-      repo: https://github.com/realArcherL/httpx
-      # uses default `path` and `ref`
+- path: ./deploy/httpx/

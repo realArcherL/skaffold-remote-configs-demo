@@ -57,9 +57,9 @@ jobs:
           sudo install skaffold /usr/local/bin/
           skaffold version
       
-#       # AWS update kubeconfig
-#       - name: Updating kubeconfig
-#         run: aws eks update-kubeconfig --name $EKS_CLUSTER --region $EKS_REGION
+      # AWS update kubeconfig
+      - name: Updating kubeconfig
+        run: aws eks update-kubeconfig --name $EKS_CLUSTER --region $EKS_REGION
 
       # Check for cluster info
       - name: Checking cluster info

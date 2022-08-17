@@ -57,7 +57,7 @@ jobs:
           sudo install skaffold /usr/local/bin/
           skaffold version
       
-      # AWS update kubeconfig
+      # AWS update kubeconfig (added custom policy)
       - name: Updating kubeconfig
         run: aws eks update-kubeconfig --name $EKS_CLUSTER --region $EKS_REGION
 
